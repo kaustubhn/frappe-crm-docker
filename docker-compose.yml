@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
       args:
         APPS_JSON_BASE64: WwogIHsKICAgICJ1cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2ZyYXBwZS9lcnBuZXh0IiwKICAgICJicmFuY2giOiAidmVyc2lvbi0xNSIKICB9LAogIHsKICAgICJ1cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2ZyYXBwZS9jcm0iLAogICAgImJyYW5jaCI6ICJ2MS4yNC43IgogIH0KXQ==
-    image: frappe/erpnext:v15
+    image: frappe/custom-erpnext:v15
     platform: linux/amd64
     deploy:
       restart_policy:
@@ -17,7 +17,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   configurator:
-    image: frappe/erpnext:v15
+    image: frappe/custom-erpnext:v15
     platform: linux/amd64
     deploy:
       restart_policy:
@@ -46,7 +46,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   create-site:
-    image: frappe/erpnext:v15
+    image: frappe/custom-erpnext:v15
     platform: linux/amd64
     deploy:
       restart_policy:
@@ -75,7 +75,7 @@ services:
           fi
         done;
         echo "sites/common_site_config.json found";
-        bench new-site --no-mariadb-socket --admin-password=admin --db-root-password=admin --install-app erpnext --set-default frontend;
+        bench new-site --no-mariadb-socket --admin-password=admin --db-root-password=admin --install-app erpnext crm --set-default frontend;
 
   db:
     image: mariadb:10.6
@@ -98,7 +98,7 @@ services:
       - db-data:/var/lib/mysql
 
   frontend:
-    image: frappe/erpnext:v15
+    image: frappe/custom-erpnext:v15
     platform: linux/amd64
     depends_on:
       - websocket
@@ -123,7 +123,7 @@ services:
       - "8088:8080"
 
   queue-long:
-    image: frappe/erpnext:v15
+    image: frappe/custom-erpnext:v15
     platform: linux/amd64
     deploy:
       restart_policy:
@@ -138,7 +138,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   queue-short:
-    image: frappe/erpnext:v15
+    image: frappe/custom-erpnext:v15
     platform: linux/amd64
     deploy:
       restart_policy:
@@ -171,7 +171,7 @@ services:
       - redis-cache-data:/data
 
   scheduler:
-    image: frappe/erpnext:v15
+    image: frappe/custom-erpnext:v15
     platform: linux/amd64
     deploy:
       restart_policy:
@@ -184,7 +184,7 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   websocket:
-    image: frappe/erpnext:v15
+    image: frappe/custom-erpnext:v15
     platform: linux/amd64
     deploy:
       restart_policy:
