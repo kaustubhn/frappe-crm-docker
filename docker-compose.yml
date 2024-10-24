@@ -1,12 +1,10 @@
-version: "3"
-
 services:
   backend:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        APPS_JSON_BASE64: WwogIHsKICAgICJ1cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2ZyYXBwZS9lcnBuZXh0IiwKICAgICJicmFuY2giOiAidmVyc2lvbi0xNSIKICB9LAogIHsKICAgICJ1cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2ZyYXBwZS9jcm0iLAogICAgImJyYW5jaCI6ICJ2MS4yNC43IgogIH0KXQ==
+        APPS_JSON_BASE64: WwogIHsKICAgICJ1cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL2ZyYXBwZS9lcnBuZXh0IiwKICAgICJicmFuY2giOiAidjE1LjM5LjMiCiAgfSwKICB7CiAgICAidXJsIjogImh0dHBzOi8vZ2l0aHViLmNvbS9mcmFwcGUvaHJtcyIsCiAgICAiYnJhbmNoIjogInYxNS4zMy4wIgogIH0sCiAgewogICAgInVybCI6ICJodHRwczovL2dpdGh1Yi5jb20vZnJhcHBlL2NybSIsCiAgICAiYnJhbmNoIjogInYxLjI0LjciCiAgfQpd
     image: frappe/custom-erpnext:v15
     platform: linux/amd64
     deploy:
@@ -77,6 +75,9 @@ services:
         echo "sites/common_site_config.json found";
         bench new-site --no-mariadb-socket --admin-password=admin --db-root-password=admin --install-app erpnext --set-default frontend;
         bench --site frontend install-app crm;
+        bench --site frontend install-app hrms;
+        bench --site frontend install-app wiki;
+        bench --site frontend install-app helpdesk;
 
   db:
     image: mariadb:10.6
